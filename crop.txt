@@ -1,0 +1,56 @@
+# Crop Recommendation Model: Training Process & Results
+
+## Dataset Used
+- Source: Crop recommendation dataset with 2,200 samples
+- Features: 7 input parameters (N, P, K, temperature, humidity, pH, rainfall)
+- Target: 22 different crop types (100 samples each)
+
+## Model Training Process
+
+### Preprocessing
+- Split the dataset into 80% training (1,760 samples) and 20% testing (440 samples)
+- Used random state 42 for reproducibility
+- No feature scaling needed as Random Forest is not sensitive to feature scales
+
+### Algorithm Selection
+- Chose Random Forest Classifier for its high performance with tabular data
+- Handles complex relationships between soil nutrients and environmental factors
+- Provides feature importance insights
+
+### Model Configuration
+- n_estimators = 100 (number of trees)
+- max_depth = 15 (depth of each tree) 
+- min_samples_split = 2
+- random_state = 42
+
+### Implementation
+- Used scikit-learn's RandomForestClassifier
+- Trained on the entire training set without cross-validation
+- Saved model using joblib for later inference
+
+## Results
+
+### Performance Metrics
+- Accuracy: 99.5% on test set
+- Precision: >0.99 (average across all classes)
+- Recall: >0.99 (average across all classes)
+- F1 Score: 0.995
+
+### Feature Importance
+1. Humidity: 21.0%
+2. Rainfall: 17.1%
+3. Phosphorus (P): 15.3%
+4. Potassium (K): 13.8%
+5. Nitrogen (N): 11.7%
+6. Temperature: 11.2%
+7. pH: 9.9%
+
+### Sample Predictions
+- Example Input: N=90, P=42, K=43, temp=21°C, humidity=82%, pH=6.5, rainfall=200mm
+- Prediction: Rice (highest probability)
+
+## Technical Implementation
+- Language: Python
+- Libraries: scikit-learn, pandas, numpy, joblib
+- Model saved as 'crop_recommendation_model.pkl'
+- Created separate script for inference to allow easy deployment
